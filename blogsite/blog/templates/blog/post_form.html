@@ -1,0 +1,15 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ form.instance.pk|yesno:"Edit Post,New Post" }}{% endblock %}
+
+{% block content %}
+<h2>{{ form.instance.pk|yesno:"Edit Post,New Post" }}</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    {% if form.instance.image %}
+        <img src="{{ form.instance.image.url }}" alt="Post Image" style="max-width:200px;"/>
+    {% endif %}
+    <button class="btn btn-success" type="submit">Save</button>
+    <a href="{% url 'post-list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}
